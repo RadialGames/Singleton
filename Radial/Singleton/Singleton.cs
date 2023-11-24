@@ -39,7 +39,11 @@ namespace Radial.Singleton
 					if (m_Instance == null)
 					{
 						// Search for existing instance.
-						m_Instance = (T) FindObjectOfType(typeof(T));
+#if UNITY_2023_1_OR_NEWER                        
+						m_Instance = FindFirstObjectByType<T>();
+#else
+						m_Instance = FindObjectOfType<T>();
+#endif
 
 						// Create new instance if one doesn't already exist.
 						if (m_Instance == null)
